@@ -3,6 +3,7 @@ package com.example.myhome.Controller;
 import com.example.myhome.model.Board;
 import com.example.myhome.model.User;
 import com.example.myhome.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class UserApiController {
 
 
@@ -18,13 +20,18 @@ public class UserApiController {
 
     @GetMapping("/users")
     List<User> all() {
-        return repository.findAll();
+        List<User> users = repository.findAll();
+        log.debug("getboards size 호출 전");
+        log.debug("getboards size : {} ", users.get(0).getBoards().size());
+        log.debug("getboards size 호출 후");
+        return users;
     }
 
     @PostMapping("/users")
     User newUser(@RequestBody User newUser) {
         return repository.save(newUser);
     }
+
 
 
     @GetMapping("/users/{id}")

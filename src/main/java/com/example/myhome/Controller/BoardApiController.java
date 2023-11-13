@@ -3,6 +3,7 @@ package com.example.myhome.Controller;
 import com.example.myhome.model.Board;
 import com.example.myhome.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +59,7 @@ public class BoardApiController {
                         });
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/boards/{id}")
     void deleteBoard(@PathVariable Long id){
         repository.deleteById(id);
